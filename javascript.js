@@ -9,9 +9,14 @@ function getComputerChoice() {
 }
 
 function getUserInput() {
-    let userInput = prompt(`Input : "Rock","Paper" or "Scissors".`);
+    let userInput = prompt(`Input: "rock","paper" or "scissors".  F12 to view console.`);
     let inputItem = userInput.toLowerCase()
-    return inputItem
+    if (inputItem == 'rock' || inputItem == 'paper' || inputItem == 'scissors') {
+        return inputItem
+    } else {
+        alert(`Invalid Input`)
+        return userInput
+    }
 }
 
 function playGame() {
@@ -19,57 +24,69 @@ function playGame() {
     let computerScore = 0
     let playedRound = 0
 
-    for (let i = 0; i < 5; i++) {
+    while (humanScore < 5 || computerScore < 5) {
         const humanSelection = getUserInput();
         const computerSelection = getComputerChoice();
         playRound(humanSelection, computerSelection);
+        if (humanScore === 5 || computerScore === 5) break;
+    } if (humanScore === 5 || computerScore === 5) {
+        return announceWinner()
     }
 
+    
+
     function playRound(humanChoice, computerChoice) {
-        playedRound++
         if (humanChoice === computerChoice) {
+            ++playedRound;
+            console.log(`Round: '${playedRound}' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
             console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
             console.log("Tie, Try again!");
-            console.log(`Round: '${playedRound}/5' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
         } else if (humanChoice === "rock" && computerChoice === "scissors") {
-            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
-            console.log("You win!");
-            console.log(`Round: '${playedRound}/5' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
             ++humanScore;
+            ++playedRound;
+            console.log(`Round: '${playedRound}' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
+            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
+            console.log("You win! Rock beats Scissors");
         } else if (humanChoice === "paper" && computerChoice === "rock")  {
-            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
-            console.log("You win!");
-            console.log(`Round: '${playedRound}/5' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
             ++humanScore;
+            ++playedRound;
+            console.log(`Round: '${playedRound}' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
+            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
+            console.log("You win! Paper beats rock");
         } else if (humanChoice === "scissors" && computerChoice === "paper") {
-            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
-            console.log("You win!");
-            console.log(`Round: '${playedRound}/5' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
             ++humanScore;
+            ++playedRound;
+            console.log(`Round: '${playedRound}' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
+            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
+            console.log("You win! Scissors beats Paper");
         } else if (humanChoice === "rock" && computerChoice === "paper") {
-            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
-            console.log("You lose!");
-            console.log(`Round: '${playedRound}/5' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
             ++computerScore;
+            ++playedRound;
+            console.log(`Round: '${playedRound}' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
+            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
+            console.log("You lose! Paper beats Rock");
         } else if (humanChoice === "paper" && computerChoice === "scissors") {
-            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
-            console.log("You lose!");
-            console.log(`Round: '${playedRound}/5' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
             ++computerScore;
+            ++playedRound;
+            console.log(`Round: '${playedRound}' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
+            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
+            console.log("You lose! Scissors beats Paper");
         } else if (humanChoice === "scissors" && computerChoice === "rock") {
-            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
-            console.log("You lose!");
-            console.log(`Round: '${playedRound}/5' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
             ++computerScore;
+            ++playedRound;
+            console.log(`Round: '${playedRound}' Your Score: '${humanScore}' CPU Score: '${computerScore}'`);
+            console.log(`User: '${humanChoice}' CPU: '${computerChoice}'`);
+            console.log("You lose! Rock beats Scissors");
         }
     }
 
-    if (humanScore > computerScore) {
-        console.log(`You win!`)
-    } else if (computerScore > humanScore) {
-        console.log(`You lose!`)
-    } else {
-        console.log(`You Tied!`)
+
+    function announceWinner() {
+        if (humanScore > computerScore) {
+            console.log(`Congratulations you win! Refresh to play again.`)
+        } else if (computerScore > humanScore) {
+            console.log(`Better luck next time CPU win! Refresh to play again.`)
+        } 
     }
 
 }
