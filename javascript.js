@@ -1,6 +1,3 @@
-let humanScore = 0
-let computerScore = 0
-let playedRound = 0
 
 function getComputerChoice() {
     let rps = ["rock","paper","scissors"];
